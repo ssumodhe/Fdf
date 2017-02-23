@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 15:20:22 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/02/23 17:53:57 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/02/23 18:02:34 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,6 @@ int		main(int argc, char **argv)
 	int		a;
 	int		b;
 
-	if (argc != 1)
-	{
-		printf("Mauvais nombre d'arguments!!\n");
-		return (0);
-	}
-	(void)argv;
 
 	list.mlx = mlx_init();
 	list.win = mlx_new_window(list.mlx, 400, 400, "my window without curtains");
