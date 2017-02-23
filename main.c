@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 15:20:22 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/02/23 17:53:57 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/02/23 18:41:21 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "libft/libft.h"
+
+// Pour centrer l'image.
+#define WINDOW_H 400
+#define WINDOW_W 400
 
 /* 
 ** Structures
@@ -51,9 +55,11 @@ void	ft_put_roof(void *mlx, void *win, int x1, int y1, int x2, int y2, int colou
 	dx = x2 - x1;
 	dy = y2 - y1;
 	D = (dy / dx);
+	if (dx == 0 || dy == 0)
+		D = 1;
 	x = x1;
 	y = y1;
-	while (x <= x2)
+	while (x <= x2 || y != y2)
 	{
 		mlx_pixel_put(mlx, win, x, y, colour);
 		
@@ -131,7 +137,7 @@ int		main(int argc, char **argv)
 	(void)argv;
 
 	list.mlx = mlx_init();
-	list.win = mlx_new_window(list.mlx, 400, 400, "my window without curtains");
+	list.win = mlx_new_window(list.mlx, WINDOW_H, WINDOW_W, "my window without curtains");
 
 	colour = 0x00FFFFFF;
 /*	// Afficher les points/coins de la maison_test.
@@ -191,6 +197,9 @@ int		main(int argc, char **argv)
 	ft_put_roof(list.mlx, list.win, 150, 150, 200, 50, colour);
 	ft_put_roof(list.mlx, list.win, 200, 50, 250, 150, colour);
 
+	colour = 0x0000FF00;
+	ft_put_roof(list.mlx, list.win, 150, 150, 200, 50, colour);
+	ft_put_roof(list.mlx, list.win, 200, 50, 250, 150, colour);
 
 /*  // Pour les images.
 	bits_per_pixel = 32; // MACOS force le bbp a 32 puisqu'il y a 8bits dans 1octet et 4 octets dans 1int
