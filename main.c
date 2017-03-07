@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 15:20:22 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/02 14:22:22 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/07 18:20:15 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft/libft.h"
 
 // Pour centrer l'image.
-#define WINDOW_H 400
+#define WINDOW_H 600
 #define WINDOW_W 400
 #define GAP 20
 
@@ -186,7 +186,7 @@ int		main(int argc, char **argv)
 	int		**tab;
 	int		x;
 	int		y;
-//	int		z;
+	int		z;
 	int		x_orig;
 	int		y_orig;
 	int		nb_line;
@@ -257,7 +257,8 @@ int		main(int argc, char **argv)
 	x_orig = 0; // Deplace le plan sur l'axe horizontal. (GAUCHE/DROITE)
 	y_orig = 200; // Deplace le plan sur l'axe vertical. (HAUT/BAS)
 	gap = 50; // Taille de la diagonale d'une case. (ZOOM +/-)
-	coeff = 0.2; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
+	coeff = 0.15; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
+	z = 10;
 	y = y_orig;
 	x = x_orig;
 	while (nb_line <= hauteur)
@@ -267,13 +268,33 @@ int		main(int argc, char **argv)
 		{
 		//	ft_drawline(list.mlx, list.win, x, y, x + gap, y, colour);
 		//	ft_drawline(list.mlx, list.win, x + (gap/2), y, x + (gap/2), y - (gap/3), colour);
-				ft_drawline(list.mlx, list.win, x + (gap/2), y - (gap * coeff), x, y, colour);
-				ft_drawline(list.mlx, list.win, x + (gap/2), y - (gap * coeff), x + gap, y, colour);
+			if (nb_col == 2)
+			{
+				ft_drawline(list.mlx, list.win, x, y, x + (gap/2), y - (gap * coeff) - (z + gap), colour);
+				ft_drawline(list.mlx, list.win, x + (gap/2), y - (gap * coeff) - (z + gap), x + gap, y - (z + gap), 0x0000FF00);
+				ft_drawline(list.mlx, list.win, x + gap, y - (z + gap), x + (gap/2), y + (gap * coeff), 0x00FF0000);
 				ft_drawline(list.mlx, list.win, x + (gap/2), y + (gap * coeff), x, y, colour);
-				ft_drawline(list.mlx, list.win, x + (gap/2), y + (gap * coeff), x + gap, y, colour);
-				x = x + (gap * 1/2);
-				y = y - (gap * coeff);
+			}
+			if (nb_col == 3)
+			{
+				ft_drawline(list.mlx, list.win, x, y - (z + gap), x + (gap/2), y - (gap * coeff), colour);
+				ft_drawline(list.mlx, list.win, x + (gap/2), y - (gap * coeff), x + gap, y, 0x0000FF00);
+				ft_drawline(list.mlx, list.win, x + gap, y, x + (gap/2), y + (gap * coeff) - (z +gap), 0x00FF0000);
+				ft_drawline(list.mlx, list.win, x + (gap/2), y + (gap * coeff) - (z + gap), x, y - (z + gap), 0x00FFC125);
+			}
+	
+
+			if (nb_col != 3 && nb_col != 2)
+			{
+				ft_drawline(list.mlx, list.win, x, y, x + (gap/2), y - (gap * coeff), colour);
+				ft_drawline(list.mlx, list.win, x + (gap/2), y - (gap * coeff), x + gap, y, colour);
+				ft_drawline(list.mlx, list.win, x + gap, y, x + (gap/2), y + (gap * coeff), colour); //important pour la derniere diagonale
+				ft_drawline(list.mlx, list.win, x + (gap/2), y + (gap * coeff), x, y, colour);
+			}
+			x = x + (gap * 1/2);
+			y = y - (gap * coeff);
 			nb_col++;
+		colour = colour + 1340000;
 		}
 		x = x_orig + (gap * 1/2 * nb_line);
 		y = y_orig + (gap * coeff * nb_line);
