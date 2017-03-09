@@ -6,7 +6,7 @@
 #    By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/08 11:04:13 by ssumodhe          #+#    #+#              #
-#    Updated: 2016/11/30 11:12:22 by ssumodhe         ###   ########.fr        #
+#    Updated: 2017/03/09 15:37:03 by ssumodhe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ FLAGS = -Wall -Werror -Wextra
 
 NAME = libft.a
 
-INCLUDES = libft.h
+INCLUDES = libft.h get_next_line.h
 
-SRCS = ft_intlen.c ft_isspace.c\
+SRCS = get_next_line.c \
+	   ft_intlen.c ft_isspace.c \
 	   ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c \
 	   ft_strncpy.c ft_strcat.c ft_strncat.c ft_strlcat.c ft_strchr.c \
@@ -39,7 +40,7 @@ all: $(NAME)
 $(NAME): $(OBJECT)
 	@gcc $(FLAGS) -c $(SRCS)
 	@ar rc $(NAME) $(OBJECT)
-	@echo "\033[1;32mDONE\033[0m"
+	@echo "Libft: \033[1;32mDONE\033[0m"
 
 %.o: %.c
 	@gcc $(FLAGS) -o $@ -c $<

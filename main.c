@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 15:20:22 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/07 18:20:15 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/09 19:07:49 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ int		main(int argc, char **argv)
 	int 	colour;
 	int		gap;
 	float	coeff;
+	float	coeff_alti;
 //	int		a;
 //	int		b;
 
@@ -258,6 +259,7 @@ int		main(int argc, char **argv)
 	y_orig = 200; // Deplace le plan sur l'axe vertical. (HAUT/BAS)
 	gap = 50; // Taille de la diagonale d'une case. (ZOOM +/-)
 	coeff = 0.15; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
+	coeff_alti = coeff * gap;
 	z = 10;
 	y = y_orig;
 	x = x_orig;
@@ -279,7 +281,7 @@ int		main(int argc, char **argv)
 			{
 				ft_drawline(list.mlx, list.win, x, y - (z + gap), x + (gap/2), y - (gap * coeff), colour);
 				ft_drawline(list.mlx, list.win, x + (gap/2), y - (gap * coeff), x + gap, y, 0x0000FF00);
-				ft_drawline(list.mlx, list.win, x + gap, y, x + (gap/2), y + (gap * coeff) - (z +gap), 0x00FF0000);
+				ft_drawline(list.mlx, list.win, x + gap, y, x + (gap/2), y + (gap * coeff) - (z + gap), 0x00FF0000);
 				ft_drawline(list.mlx, list.win, x + (gap/2), y + (gap * coeff) - (z + gap), x, y - (z + gap), 0x00FFC125);
 			}
 	

@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 16:04:07 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/02/23 14:38:47 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/09 15:34:31 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <ctype.h>
+
+# include "get_next_line.h"
 
 # define RESET	   "\033[0m"
 # define HIGHLIGHT "\033[1m"
@@ -39,8 +41,17 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+/*
+** Fonctions supplementaires
+*/
+int					get_next_line(const int fd, char **line);
+
 int					ft_intlen(int n);
 int					ft_isspace(char c);
+
+/*
+** Fonctions de bases
+*/
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -60,7 +71,7 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *big, const char *little);
 char				*ft_strnstr(const char *big, const char *little, \
-		size_t len);
+														size_t len);
 int					ft_strcmp(const char *s1, const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
