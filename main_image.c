@@ -35,7 +35,7 @@ int		y = 150;
 
 
 /* 
-** Code
+** Code ttt
 */
 
 void	 ft_put_sqr(void *mlx, void *win, int x, int y, int colour)
