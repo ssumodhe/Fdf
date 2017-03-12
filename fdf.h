@@ -19,9 +19,14 @@
 typedef struct		s_data
 {
 	char 			*line;
+	char			**data_line;
 	struct s_data	*next;
 }					t_data;
 
-void				ft_getline(int fd);
+void				ft_prog(int fd);
+void				ft_exit(char *str);
+
+t_data				*ft_getmap(int fd);
+t_data				*ft_addnewdatalst();
 
 #endif

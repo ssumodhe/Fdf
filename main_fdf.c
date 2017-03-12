@@ -27,7 +27,7 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 
-	ft_getline(fd);
+	ft_prog(fd);
 
 	if (close(fd) < 0)
 	{
