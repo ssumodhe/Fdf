@@ -16,12 +16,12 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 
-typedef struct		s_map
+typedef struct		s_data
 {
-	char 			**line;
-	struct s_map	*next;
-}					t_map;
+	char 			*line;
+	struct s_data	*next;
+}					t_data;
 
-void				ft_getmap(int fd);
+void				ft_getline(int fd);
 
 #endif

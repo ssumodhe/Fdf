@@ -27,7 +27,7 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 
-	ft_getmap(fd);
+	ft_getline(fd);
 
 	if (close(fd) < 0)
 	{
