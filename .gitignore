@@ -1,3 +1,4 @@
 a.out
 libft/*.o
+libft/*.a
 minilibx/*.o

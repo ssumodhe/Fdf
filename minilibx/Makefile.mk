@@ -36,12 +36,12 @@ CFLAGS	= -O3 -I$(INC)
 all	: $(NAME) $(DOCP)
 
 $(NAME)	: $(OBJ)
-	ar -r $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar -r $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 do_cp	:
-	cp $(NAME) libmlx_$(HT).a
+	@cp $(NAME) libmlx_$(HT).a
 
 
 clean	:
-	rm -f $(OBJ) $(NAME) *~ core *.core
+	@rm -f $(OBJ) $(NAME) *~ core *.core

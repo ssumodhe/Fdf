@@ -14,9 +14,10 @@
 all	: do_configure
 
 do_configure	:
-	./configure
+	@./configure
+	@echo "Libmlx: \033[1;32mDONE\033[0m"
 
 clean	:
-	./configure clean
+	@./configure clean
 
 re	: clean all
