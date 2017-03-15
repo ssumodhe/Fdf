@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/15 18:02:23 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/15 20:04:37 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,56 @@ void	ft_pixel_put_img(t_map *map, int x, int y)
 
 }
 
-void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
+void	ft_choose_side(int	dq, int dp, int x, int y, t_map *map)
 {
 	int		i;
+	int		qinc;
+	int		pinc;
+	int		cumul;
+
+	qinc = (dq > 0) ? 1 : -1;
+	pinc = (dp > 0) ? 1 : -1;
+	cumul = (dq / 2);
+	i = 1;
+	while (i <= dq)
+	{
+		x = x + qinc;
+		cumul = cumul + dp;
+		if (cumul >= dq)
+		{
+			cumul = cumul - dq;
+			y = y + pinc;
+		}
+		ft_pixel_put_img(map, x, y);
+		i++;
+	}
+}
+
+void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
+{
+//	int		i;
 	int		x;
 	int		y;
 	int		dx;
 	int 	dy;
-	int		xinc;
-	int		yinc;
-	int		cumul;
+//	int		xinc;
+//	int		yinc;
+//	int		cumul;
 
 	(void)colour;
 	x = x1;
 	y = y1;
 	dx = x2 - x1;
 	dy = y2 - y1;
-	xinc = (dx > 0) ? 1 : -1;
-	yinc = (dy > 0) ? 1 : -1;
+//	xinc = (dx > 0) ? 1 : -1;
+//	yinc = (dy > 0) ? 1 : -1;
 	dx = (dx < 0) ? -dx : dx;
 	dy = (dy < 0) ? -dy : dy;
 
 	ft_pixel_put_img(map, x, y);
 	if (dx > dy)
-	{
+		ft_choose_side(dx, dy, x, y, map);
+/*	{
 		cumul = (dx / 2);
 		i = 1;
 		while (i <= dx)
@@ -65,9 +91,10 @@ void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
 			ft_pixel_put_img(map, x, y);
 			i++;
 		}
-	}
+	}*/
 	else 
-	{
+		ft_choose_side(dy, dx, y, x, map);
+/*	{
 		cumul = (dy / 2);
 		i = 1;
 		while (i <= dy)
@@ -82,7 +109,7 @@ void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
 			ft_pixel_put_img(map, x, y);
 			i++;
 		}
-	}
+	}*/
 }
 
 void		ft_design_image(t_map *map, t_data *data)
@@ -112,46 +139,34 @@ void		ft_design_image(t_map *map, t_data *data)
 	coeff_alti = coeff * gap;
 	y = y_orig;
 	x = x_orig;
-	y = 0;
-	while (tmp->next != NULL)
-	{
+//	y = 0;
+//	while (tmp->next != NULL)
+//	{
 		x = 0;
 		gap = 0;
 		while (tmp->data_line && tmp->data_line[x])
 		{
-			z = ft_atoi(tmp->data_line[x]);
+		//	z = ft_atoi(tmp->data_line[x]);
+				z = 0;
 				ft_drawline_img(map, x, y, x + (gap/2), y - (gap * coeff) - (z + gap), 0x00FFFFFF);
 				ft_drawline_img(map, x + (gap/2), y - (gap * coeff) - (z + gap), x + gap, y - (z + gap), 0x0000FF00);
 				ft_drawline_img(map, x + gap, y - (z + gap), x + (gap/2), y + (gap * coeff), 0x00FF0000);
 				ft_drawline_img(map, x + (gap/2), y + (gap * coeff), x, y, 0x00FFFFFF);
-	/*		if (nb_col == 3)
-			{
-				ft_drawline_img(map, x, y - (z + gap), x + (gap/2), y - (gap * coeff), 0x00FFFFF);
-				ft_drawline_img(map, x + (gap/2), y - (gap * coeff), x + gap, y, 0x0000FF00);
-				ft_drawline_img(map, x + gap, y, x + (gap/2), y + (gap * coeff) - (z + gap), 0x00FF0000);
-				ft_drawline_img(map, x + (gap/2), y + (gap * coeff) - (z + gap), x, y - (z + gap), 0x00FFC125);
-			}
-	
 
-			if (nb_col != 3 && nb_col != 2)
-			{
-				ft_drawline_img(map, x, y, x + (gap/2), y - (gap * coeff), 0x00FFFFFF);
-				ft_drawline_img(map, x + (gap/2), y - (gap * coeff), x + gap, y, 0x00FFFFFF);
-				ft_drawline_img(map, x + gap, y, x + (gap/2), y + (gap * coeff), 0x00FFFFFF); //important pour la derniere diagonale
-				ft_drawline_img(map, x + (gap/2), y + (gap * coeff), x, y, 0x00FFFFFF);
-			}
-			*/
+		//	if (nb_col != 3 && nb_col != 2)
+		//	{
+		//		ft_drawline_img(map, x, y, x + (gap/2), y - (gap * coeff), 0x00FFFFFF);
+			//	ft_drawline_img(map, x + (gap/2), y - (gap * coeff), x + gap, y, 0x00FFFFFF);
+			//	ft_drawline_img(map, x + gap, y, x + (gap/2), y + (gap * coeff), 0x00FFFFFF); //important pour la derniere diagonale
+		//		ft_drawline_img(map, x + (gap/2), y + (gap * coeff), x, y, 0x00FFFFFF);
+		//	}
 				
-//			x = x + (gap * 1/2);
-//			y = y - (gap * coeff);
 			x++;
 			gap = gap + 10;
 		}
-	//	x = x_orig + (gap * 1/2 * nb_line);
-	//	y = y_orig + (gap * coeff * nb_line);
-		y = y + (gap * coeff);
-		tmp = tmp->next;
-	}
+//		y = y + (gap * coeff);
+//		tmp = tmp->next;
+//	}
 
 
 
