@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:25:47 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/13 17:22:37 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/15 15:33:13 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ t_map	*ft_parsemap(t_data	*data)
 	compare = 0;
 	while (tmp->next != NULL)
 	{
+		// dire que tmp->line[0] si != '-' ou d'un chiffre : mauvais
 		if (tmp->line[0] == '\n' || tmp->line[0] == '\0')
 			ft_exit(RED"map: incorrect"RESET);
 		map->width = ft_checkdata(tmp->data_line);

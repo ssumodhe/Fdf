@@ -6,11 +6,11 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/15 18:02:23 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:04:43 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../fdf.h"
 
 
 void	ft_pixel_put_img(t_map *map, int x, int y)
@@ -87,13 +87,13 @@ void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
 
 void		ft_design_image(t_map *map, t_data *data)
 {
-	t_data *tmp;
-//	t_data *after;
 	int	x;
-//	int x_max;
 	int	x_orig;
 	int	y;
-//	int y_max;
+	int largeur;
+	int hauteur;
+	int	nb_line;
+	int nb_col;
 	int	y_orig;
 	int z;
 	int gap;
@@ -102,29 +102,33 @@ void		ft_design_image(t_map *map, t_data *data)
 
 	(void)data;
 
-	tmp = data;
+	hauteur = map->height;
+	largeur = map->width;
+	nb_line = 1;
+	nb_col = 1;
 	x_orig = ((map->width * GAP) / 4);
 	y_orig = ((map->height * GAP) * 3 / 4);
 //	x_orig = 50; // Deplace le plan sur l'axe horizontal. (GAUCHE/DROITE)
 //	y_orig = 100; // Deplace le plan sur l'axe vertical. (HAUT/BAS)
-	gap = 10; // Taille de la diagonale d'une case. (ZOOM +/-)
+	gap = 50; // Taille de la diagonale d'une case. (ZOOM +/-)
 	coeff = 0.15; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
 	coeff_alti = coeff * gap;
+	z = 10;
 	y = y_orig;
 	x = x_orig;
-	y = 0;
-	while (tmp->next != NULL)
+	while (nb_line <= hauteur)
 	{
-		x = 0;
-		gap = 0;
-		while (tmp->data_line && tmp->data_line[x])
+		nb_col = 1;
+		while (nb_col <= largeur)
 		{
-			z = ft_atoi(tmp->data_line[x]);
+/*			if (nb_col == 2)
+			{
 				ft_drawline_img(map, x, y, x + (gap/2), y - (gap * coeff) - (z + gap), 0x00FFFFFF);
 				ft_drawline_img(map, x + (gap/2), y - (gap * coeff) - (z + gap), x + gap, y - (z + gap), 0x0000FF00);
 				ft_drawline_img(map, x + gap, y - (z + gap), x + (gap/2), y + (gap * coeff), 0x00FF0000);
 				ft_drawline_img(map, x + (gap/2), y + (gap * coeff), x, y, 0x00FFFFFF);
-	/*		if (nb_col == 3)
+			}
+			if (nb_col == 3)
 			{
 				ft_drawline_img(map, x, y - (z + gap), x + (gap/2), y - (gap * coeff), 0x00FFFFF);
 				ft_drawline_img(map, x + (gap/2), y - (gap * coeff), x + gap, y, 0x0000FF00);
@@ -134,23 +138,20 @@ void		ft_design_image(t_map *map, t_data *data)
 	
 
 			if (nb_col != 3 && nb_col != 2)
-			{
+			{*/
 				ft_drawline_img(map, x, y, x + (gap/2), y - (gap * coeff), 0x00FFFFFF);
 				ft_drawline_img(map, x + (gap/2), y - (gap * coeff), x + gap, y, 0x00FFFFFF);
 				ft_drawline_img(map, x + gap, y, x + (gap/2), y + (gap * coeff), 0x00FFFFFF); //important pour la derniere diagonale
 				ft_drawline_img(map, x + (gap/2), y + (gap * coeff), x, y, 0x00FFFFFF);
-			}
-			*/
+		//	}
 				
-//			x = x + (gap * 1/2);
-//			y = y - (gap * coeff);
-			x++;
-			gap = gap + 10;
+			x = x + (gap * 1/2);
+			y = y - (gap * coeff);
+			nb_col++;
 		}
-	//	x = x_orig + (gap * 1/2 * nb_line);
-	//	y = y_orig + (gap * coeff * nb_line);
-		y = y + (gap * coeff);
-		tmp = tmp->next;
+		x = x_orig + (gap * 1/2 * nb_line);
+		y = y_orig + (gap * coeff * nb_line);
+		nb_line++;
 	}
 
 
