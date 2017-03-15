@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/13 18:18:56 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/15 13:05:39 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ typedef struct		s_fdf
 {
 	void	*mlx; //serveur
 	void	*win; //fenetre
-	void	*image; //image
+	void	*img; //image
+	char	*img_addr;
 }					t_fdf;
 
 typedef struct		s_map
 {
 	int		height;
 	int		width;
+	t_fdf	fdf;
 }					t_map;
 
 typedef struct		s_data
