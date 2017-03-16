@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/16 16:15:30 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/16 19:56:53 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,46 +115,51 @@ void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
 void		ft_design_image(t_map *map, t_data *data)
 {
 	t_data *tmp;
-//	t_data *after;
+	t_data *after;
 	int	x;
 	int	x_orig;
 	int	y;
 	int	y_orig;
 	int z;
+	int	w;
+	int	v;
 	int repeat;
 	int gap;
 	float coeff;
 	float coeff_alti;
 
-	(void)data;
-
 	x_orig = ((map->width * GAP) / 8);
 	y_orig = ((map->height * GAP) / 2);
-	gap = 50; // Taille de la diagonale d'une case. (ZOOM +/-)
+	gap = GAP; // Taille de la diagonale d'une case. (ZOOM +/-)
 	coeff = 0.3; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
 	coeff_alti = coeff * gap;
-
 	y = 0;
 	tmp = data;
+	after = data;
+	after = after->next;
 	while (tmp->next != NULL)
 	{
 		x = 0;
 		while (tmp->data_line && tmp->data_line[x])
 		{
+			w = 0;
+			v = 0;
 			z = ft_atoi(tmp->data_line[x]);
-			ft_putstr("z = ");
-			ft_putnbr(z);
-			ft_putchar('\n');
+			if (tmp->data_line[x + 1])
+				w = ft_atoi(tmp->data_line[x + 1]);
+			if (after->data_line[x])
+				v = ft_atoi(after->data_line[x]);
 			repeat = x * (gap/2);
-			ft_drawline_img(map, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti),\
-				   	x_orig + (repeat) + (gap/2), y_orig  - (x * gap * coeff)- (gap * coeff), 0x00FFFFFF);
-			ft_drawline_img(map, x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (gap * coeff),\
-				   	x_orig + (repeat) + gap, y_orig - (x * gap * coeff), 0x00FFFFFF);
-			ft_drawline_img(map, x_orig + (repeat)+ gap, y_orig - (x * gap * coeff),\
-				   	x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) + (gap * coeff), 0x00FFFFFF);
-			ft_drawline_img(map, x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) + (gap * coeff),\
-				   	x_orig + (repeat), y_orig - (x * gap * coeff), 0x00FFFFFF);
-
+			//a - > b
+			ft_drawline_img(map, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat) + (gap/2), y_orig  - (x * gap * coeff) - (w * coeff_alti) - (gap * coeff), 0x00FFFFFF);
+//			//b - > c
+//			ft_drawline_img(map, x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (gap * coeff),\
+//				   	x_orig + (repeat) + gap, y_orig - (x * gap * coeff), 0x00FFFFFF);
+//			//c - > d
+//			ft_drawline_img(map, x_orig + (repeat)+ gap, y_orig - (x * gap * coeff),\
+//				   	x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) + (gap * coeff), 0x00FFFFFF);
+			//d - > a
+			ft_drawline_img(map, x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (v * coeff_alti) + (gap * coeff), x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), 0x00FFFFFF);
 			x++;
 		}
 		y++;
@@ -175,7 +180,6 @@ void		ft_createwindow(t_map *map, t_data *data)
 
 	//ADD CONDITION FOR IF map->height ou map->width > reso ecran
 	//	map->fdf.win = mlx_new_window(map->fdf.mlx, 2560 , 1400, WIN_NAME); ECRAN MAX
-	(void)data;
 	map->fdf.mlx = mlx_init();
 	map->fdf.win = mlx_new_window(map->fdf.mlx, (map->width * GAP) + (GAP * 2) , \
 			(map->height * GAP) + (GAP * 2), WIN_NAME);

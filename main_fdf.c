@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:13:00 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/09 19:22:33 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/16 18:43:30 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		main(int argc, char **argv)
 		ft_putstr(RED"close: fail\n"RESET);
 		return (0);
 	}
+	while (1);
 	return (0);
 }

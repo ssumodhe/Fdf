@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/15 19:04:49 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/16 19:56:08 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 
 # define WIN_NAME "My window without curtains"
-# define GAP 50
+# define GAP 25
 
 typedef struct		s_fdf
 {
