@@ -17,6 +17,7 @@ OBJS = $(SRC:.c=.o)
 
 all : $(NAME)
 	@clang $(FLAGS) -o $(NAME) $(SRCS) $(LIBFT) $(LIBMLX)
+	@echo "Fdf : /033[1;32mOK/033[0m"
 
 $(NAME) : $(LIBFT) $(LIBMLX)
 

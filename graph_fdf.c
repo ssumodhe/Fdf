@@ -112,6 +112,30 @@ void	ft_drawline_img(t_map *map,int x1, int y1, int x2, int y2, int colour)
 	}
 }
 
+/*
+int			ft_getcolour(char *point)
+{
+	int		i;
+	char	*tmp;
+	char	*char_colour;
+	int		*int_colour;
+
+	i = 0;
+	// Check si cet int fait blanc
+	int_colour = 255 + 255 + 255; 
+	while (tmp)
+	{
+		if (tmp[0] == ',' && tmp[2] == 'x')
+		{
+			char_colour = tmp;
+			int_colour = ft_atoi_base(char_colour);
+			return(int_colour);
+		}
+		tmp++;
+	}
+	return(int_colour);
+}*/
+
 void		ft_design_image(t_map *map, t_data *data)
 {
 	t_data *tmp;
@@ -127,6 +151,7 @@ void		ft_design_image(t_map *map, t_data *data)
 	int gap;
 	float coeff;
 	float coeff_alti;
+	int		colour;
 
 	x_orig = ((map->width * GAP) / 8);
 	y_orig = ((map->height * GAP) / 2);
@@ -142,6 +167,7 @@ void		ft_design_image(t_map *map, t_data *data)
 		x = 0;
 		while (tmp->data_line && tmp->data_line[x])
 		{
+			colour = ft_getcolour(tmp->data_line[x]);
 			w = 0;
 			v = 0;
 			z = ft_atoi(tmp->data_line[x]);
