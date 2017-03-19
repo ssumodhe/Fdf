@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/16 19:56:08 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/19 19:00:59 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "libft/libft.h"
-# include <mlx.h>
+# include "minilibx/mlx.h"
 # include <fcntl.h>
 
 # define WIN_NAME "My window without curtains"

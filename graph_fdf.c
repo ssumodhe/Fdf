@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/16 19:56:53 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/19 19:00:54 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void		ft_design_image(t_map *map, t_data *data)
 	int gap;
 	float coeff;
 	float coeff_alti;
-	int		colour;
+//	int		colour;
 
 	x_orig = ((map->width * GAP) / 8);
 	y_orig = ((map->height * GAP) / 2);
@@ -162,12 +162,12 @@ void		ft_design_image(t_map *map, t_data *data)
 	tmp = data;
 	after = data;
 	after = after->next;
-	while (tmp->next != NULL)
+	while (tmp->next != NULL && after->next != NULL)
 	{
 		x = 0;
 		while (tmp->data_line && tmp->data_line[x])
 		{
-			colour = ft_getcolour(tmp->data_line[x]);
+//			colour = ft_getcolour(tmp->data_line[x]);
 			w = 0;
 			v = 0;
 			z = ft_atoi(tmp->data_line[x]);
@@ -178,18 +178,13 @@ void		ft_design_image(t_map *map, t_data *data)
 			repeat = x * (gap/2);
 			//a - > b
 			ft_drawline_img(map, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat) + (gap/2), y_orig  - (x * gap * coeff) - (w * coeff_alti) - (gap * coeff), 0x00FFFFFF);
-//			//b - > c
-//			ft_drawline_img(map, x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (gap * coeff),\
-//				   	x_orig + (repeat) + gap, y_orig - (x * gap * coeff), 0x00FFFFFF);
-//			//c - > d
-//			ft_drawline_img(map, x_orig + (repeat)+ gap, y_orig - (x * gap * coeff),\
-//				   	x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) + (gap * coeff), 0x00FFFFFF);
 			//d - > a
 			ft_drawline_img(map, x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (v * coeff_alti) + (gap * coeff), x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), 0x00FFFFFF);
 			x++;
 		}
 		y++;
 		tmp = tmp->next;
+		after = after->next;
 		//Point de depart + repetition
 		x_orig = ((map->width * GAP) / 8) + (y * (gap/2));
 		y_orig = ((map->height * GAP) / 2) + (y * gap * coeff);
