@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/19 19:00:54 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/19 20:34:50 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,15 +153,17 @@ void		ft_design_image(t_map *map, t_data *data)
 	float coeff_alti;
 //	int		colour;
 
-	x_orig = ((map->width * GAP) / 8);
-	y_orig = ((map->height * GAP) / 2);
+				ft_putendl(HIGHLIGHT"entree design image"RESET);
+ 	x_orig = ((map->width * GAP)/map->k / 8);
+	y_orig = (((map->height * GAP) + (map->highest * GAP))/map->k * 3 / 4);
 	gap = GAP; // Taille de la diagonale d'une case. (ZOOM +/-)
 	coeff = 0.3; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
-	coeff_alti = coeff * gap;
+	coeff_alti = gap * 3 / 4;
 	y = 0;
 	tmp = data;
 	after = data;
 	after = after->next;
+				ft_putendl(HIGHLIGHT"tmp + after initialises"RESET);
 	while (tmp->next != NULL && after->next != NULL)
 	{
 		x = 0;
@@ -186,10 +188,11 @@ void		ft_design_image(t_map *map, t_data *data)
 		tmp = tmp->next;
 		after = after->next;
 		//Point de depart + repetition
-		x_orig = ((map->width * GAP) / 8) + (y * (gap/2));
-		y_orig = ((map->height * GAP) / 2) + (y * gap * coeff);
+		x_orig = (((map->width * GAP)/map->k) / 8) + (y * (gap/2));
+		y_orig = (((map->height * GAP) + (map->highest * GAP))/map->k * 3/4) + (y * gap * coeff);
 	}
 }
+
 
 void		ft_createwindow(t_map *map, t_data *data)
 {
@@ -201,14 +204,21 @@ void		ft_createwindow(t_map *map, t_data *data)
 
 	//ADD CONDITION FOR IF map->height ou map->width > reso ecran
 	//	map->fdf.win = mlx_new_window(map->fdf.mlx, 2560 , 1400, WIN_NAME); ECRAN MAX
+	
+				ft_putnbr(map->width);
+				ft_putchar(' ');
+				ft_putnbr(map->height);
+				ft_putendl("");
 	map->fdf.mlx = mlx_init();
-	map->fdf.win = mlx_new_window(map->fdf.mlx, (map->width * GAP) + (GAP * 2) , \
-			(map->height * GAP) + (GAP * 2), WIN_NAME);
-
+	map->k = 1;
+	if ((((map->width * GAP) + (GAP * 2)) >= 2560) || (((map->height * GAP) + (map->highest * GAP) + (GAP*2)) >= 1400))
+		map->k = 2;
+	map->fdf.win = mlx_new_window(map->fdf.mlx, ((map->width * GAP) / map->k) + (GAP * 2) , \
+			(((map->height * GAP) + (map->highest * GAP))/map->k) + (GAP * 2), WIN_NAME);
 	bits_per_pixel = 32;
 	endian = 1; 
 	size_line = 0;
-	if(!(map->fdf.img = mlx_new_image(map->fdf.mlx, map->width * GAP, map->height * GAP)))
+	if(!(map->fdf.img = mlx_new_image(map->fdf.mlx,  ((map->width * GAP) / map->k) , (((map->height * GAP) + (map->highest * GAP))/map->k))))
 		exit(1);
 	map->fdf.img_addr = mlx_get_data_addr(map->fdf.img, &bits_per_pixel, &size_line, &endian);
 	ft_design_image(map, data);
