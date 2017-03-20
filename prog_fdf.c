@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:26:16 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/19 19:35:19 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/20 14:52:03 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void	ft_prog(int fd)
 
 	data = ft_getmap(fd);
 	map = ft_parsemap(data);
-	ft_createwindow(map, data);
+	ft_graph_part(map, data);
 }

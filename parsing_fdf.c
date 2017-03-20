@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:25:47 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/19 19:39:40 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:05:30 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,29 +79,33 @@ void	ft_parsemap(t_data	*data)
 	ft_putendl(GREEN"map: OK\n"RESET);
 }*/
 
-int		ft_get_highest(t_data *data)
+void		ft_get_highest(t_data *data, t_map *map)
 {
 	t_data	*tmp_data;
 	int		a;
-	int		compare;
+	int		compare_h;
+	int		compare_l;
+	int		point;
 
-	compare = 0;
+	compare_h = 0;
+	compare_l = 0;
 	tmp_data = data;
 	while (tmp_data->next != NULL)
 	{
 		a = 0;
 		while (tmp_data->data_line[a])
 		{
-			if (compare <= ft_atoi(tmp_data->data_line[a]))
-				compare = ft_atoi(tmp_data->data_line[a]);
+			point = ft_atoi(tmp_data->data_line[a]);
+			if (point >= 0 && compare_h <= point)
+				compare_h = point;
+			if (point < 0 && compare_l >= point)
+				compare_l = point;
 			a++;
 		}
 		tmp_data = tmp_data->next;
 	}
-	ft_putstr("compare = ");
-	ft_putnbr(compare);
-	ft_putchar('\n');
-	return (compare);
+	map->highest = compare_h;
+	map->lowest = compare_l;
 }
 
 int		ft_checkdata(char **data)
@@ -158,7 +162,15 @@ t_map	*ft_parsemap(t_data	*data)
 		tmp = tmp->next;
 	}
 	tmp_map = map;
-	map->highest = ft_get_highest(data);
+	ft_get_highest(data, map);
+
+	ft_putstr("high point = ");
+	ft_putnbr(map->highest);
+	ft_putchar('\n');
+	ft_putstr("low point = ");
+	ft_putnbr(map->lowest);
+	ft_putchar('\n');
+
 	ft_putendl(GREEN"map: OK\n"RESET);
 	return (map);
 }
