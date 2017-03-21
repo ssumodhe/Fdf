@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/20 18:57:47 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/21 20:29:32 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@
 # include <fcntl.h>
 
 # define WIN_NAME "My window without curtains"
-# define GAP 50
+# define GAP 25
 
-typedef struct		s_window
+typedef struct		s_image
 {
-	int		win_h;
-	int		win_w;
+	int		img_h;
+	int		img_w;
 	int		x_orig;
 	int		y_orig;
 	int		gap;
-}					t_window;
+	char	*img_addr;
+}					t_image;
 
 typedef struct		s_fdf
 {
@@ -65,12 +66,12 @@ t_map				*ft_parsemap(t_data *data);
 int					ft_checkdata(char **data);
 
 void				ft_graph_part(t_map *map, t_data *data);
-void				ft_createwindow(t_map *map, t_data *data, t_window *window);
+void				ft_createwindow(t_map *map, t_data *data, t_image *image);
 
-void				ft_design_image(t_map *map, t_data *data, t_window *window);
+void				ft_design_image(t_map *map, t_data *data, t_image *image);
 void				ft_getcolour(char *point);
-void				ft_drawline_img(t_map *map, int x1, int y1, int x2, int y2, int colour);
-void				ft_choose_side(int dq, int dp, int x, int y, t_map *map);
-void				ft_pixel_put_img(t_map *map, int x, int y);
+void				ft_drawline_img(t_image *image, int x1, int y1, int x2, int y2, int colour);
+void				ft_choose_side(int dq, int dp, int x, int y, t_image *image);
+void				ft_pixel_put_img(t_image *img, int x, int y);
 
 #endif
