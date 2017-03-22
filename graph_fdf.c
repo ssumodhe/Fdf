@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/21 20:29:28 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:17:20 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,15 @@ void		ft_createwindow(t_map *map, t_data *data, t_image *image)
 	image->img_addr = mlx_get_data_addr(map->fdf.img, &bits_per_pixel, &size_line, &endian);
 
 
+			ft_drawline_img(image, 0, 0, (image->img_w - 1), 0, 0x00FFFFFF);
+			ft_drawline_img(image, (image->img_w - 1), 0, (image->img_w - 1), (image->img_h - 1), 0x00FFFFFF);
+			ft_drawline_img(image, (image->img_w - 1), (image->img_h - 1), 0, (image->img_h - 1), 0x00FFFFFF);
+			ft_drawline_img(image, 0, (image->img_h - 1), 0, 0, 0x00FFFFFF);
+			ft_drawline_img(image, 0, image->y_orig, image->x_orig, image->y_orig, 0x00FFFFFF);
+			ft_drawline_img(image, 0, map->highest * GAP * 3/4, image->x_orig, map->highest * GAP * 3/4, 0x00FFFFFF);
+			ft_drawline_img(image, 0, (map->highest * GAP * 3/4) + (map->height * GAP * 0.3), image->x_orig, (map->highest * GAP * 3/4) + (map->height * GAP * 0.3), 0x00FFFFFF);
 
-
-
+//(void)data;
 	ft_design_image(map, data, image);
 	mlx_put_image_to_window(map->fdf.mlx, map->fdf.win, map->fdf.img, GAP, GAP);
 	mlx_loop(map->fdf.mlx);
@@ -51,15 +57,25 @@ t_image		*ft_get_img_param(t_map *map)
 	if (!(img_param = (t_image *)malloc(sizeof(*img_param))))
 		ft_exit("error malloc t_image *image");
 	map->k = 1;
-	gap = GAP / map->k;
+	gap = GAP;
 
-	img_param->img_h = (map->height + map->highest - map->lowest) * gap;
-	if (map->width >= map->height)
+//	img_param->img_h = ((map->height*2) *gap * 0.3) + ((map->highest - map->lowest) * (gap * 3/4));
+	img_param->img_h = (hypot(((map->width+2) * gap * 0.3),((map->height+2) * gap * 0.3))) + ((map->highest - map->lowest) * (gap * 3/4));
+	if (map->width > map->height)
+	{
+//		img_param->img_h = ((map->width + map->width/2) *gap * 0.3) + ((map->highest - map->lowest) * (gap * 3/4));
 		img_param->img_w = (map->width + 1) * gap;
-	else if (map->width < map->height)
+//		img_param->y_orig = (map->height * gap * 0.3) + (map->highest * gap * 3/4) + gap;
+	}
+	else if (map->width <= map->height)
+	{
+//		img_param->img_h = ((map->height*2) *gap * 0.3) + ((map->highest - map->lowest) * (gap * 3/4));
 		img_param->img_w = (map->height + 1) * gap;
-	img_param->x_orig = 0;
-	img_param->y_orig = (map->height + map->highest) * gap;
+//		img_param->y_orig = ((map->height/2) * gap * 0.3) + (map->highest * gap * 3/4);
+	}
+	img_param->x_orig = gap;
+	img_param->y_orig = (img_param->img_h - ((map->height+2)/2 * gap * 0.3) - (map->lowest * gap * 3/4)) - gap;
+//	img_param->y_orig = (img_param->img_h - (map->height/2 * gap * 0.3) + (map->lowest * gap * 3/4)) - gap;
 	img_param->gap = gap;
 
 

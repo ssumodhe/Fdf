@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/21 20:29:32 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:17:25 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
 # include <fcntl.h>
+# include <math.h>
 
 # define WIN_NAME "My window without curtains"
 # define GAP 25
