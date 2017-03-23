@@ -6,22 +6,11 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/23 20:23:32 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:48:40 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int		ft_key(int keycode, t_image *image)
-{
-	if (image->gap == GAP)
-	{
-				ft_putstr("Keycode = ");
-				ft_putnbr(keycode);
-				ft_putendl("");
-	}
-				return (0);
-}
 
 void		ft_createwindow(t_map *map, t_data *data, t_image *image)
 {
@@ -50,21 +39,13 @@ void		ft_createwindow(t_map *map, t_data *data, t_image *image)
 			ft_drawline_img(image, (image->img_w - 1), 0, (image->img_w - 1), (image->img_h - 1), 0x00FFFFFF);
 			ft_drawline_img(image, (image->img_w - 1), (image->img_h - 1), 0, (image->img_h - 1), 0x00FFFFFF);
 			ft_drawline_img(image, 0, (image->img_h - 1), 0, 0, 0x00FFFFFF);
+//			ft_drawline_img(image, 0, image->y_orig, image->x_orig, image->y_orig, 0x00FFFFFF);
+//			ft_drawline_img(image, 0, map->highest * GAP * 3/4, image->x_orig, map->highest * GAP * 3/4, 0x00FFFFFF);
+//			ft_drawline_img(image, 0, (map->highest * GAP * 3/4) + (map->height * GAP * 0.3), image->x_orig, (map->highest * GAP * 3/4) + (map->height * GAP * 0.3), 0x00FFFFFF);
 
+//(void)data;
 	ft_design_image(map, data, image);
-
-	//Last lines.
-			ft_drawline_img(image, image->x_orig + (map->width) * (image->gap/2), (image->y_orig) - (map->width) * (image->gap * 0.3), 0, 0, 0x00FF0000);
-//			ft_drawline_img(image, (image->img_w - 1), 0, (image->img_w - 1), (image->img_h - 1), 0x00FFFFFF);
-
-
-
 	mlx_put_image_to_window(map->fdf.mlx, map->fdf.win, map->fdf.img, GAP, GAP);
-
-	// Keycodes.
-//	mlx_key_hook(map->fdf.img, ft_key, &image);
-
-
 	mlx_loop(map->fdf.mlx);
 }
 
@@ -78,14 +59,24 @@ t_image		*ft_get_img_param(t_map *map)
 	map->k = 1;
 	gap = GAP;
 
+//	img_param->img_h = ((map->height*2) *gap * 0.3) + ((map->highest - map->lowest) * (gap * 3/4));
 	img_param->img_h = (((map->height+5)*2) * gap * 0.3) + ((map->highest + fabs((double)map->lowest)) * (gap * 3/4));
 	if (map->width > map->height)
+	{
+//		img_param->img_w = (map->width + 1) * gap;
 		img_param->img_w = (map->width + 1) * gap;
+	}
 	else if (map->width <= map->height)
+	{
+//		img_param->img_w = (map->height + 1) * gap;
 		img_param->img_w = (map->height + 1) * gap;
+	}
 	img_param->x_orig = gap;
 	img_param->y_orig = (img_param->img_h - ((map->height+5) * gap * 0.3)) - (fabs((double)map->lowest) * gap * 3/4);
+//	img_param->y_orig = (img_param->img_h - (map->height/2 * gap * 0.3) + (map->lowest * gap * 3/4)) - gap;
 	img_param->gap = gap;
+
+
 	return (img_param);
 }
 
@@ -94,6 +85,7 @@ void		ft_graph_part(t_map *map, t_data *data)
 	t_image		*img_param;
 
 				ft_putendl(HIGHLIGHT"\nPHASE 3 --> CREATE WINDOW\n"RESET);
+	(void)data;
 	img_param = ft_get_img_param(map);
 				ft_putstr("img_h = ");
 				ft_putnbr(img_param->img_h);

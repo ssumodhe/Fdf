@@ -6,28 +6,50 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 14:06:14 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/22 19:02:49 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/23 20:20:58 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_pixel_put_img(t_image *img, int x, int y)
+void	ft_pixel_put_img(t_image *img, int x, int y, int colour)
 {
 	int		i;
 
 	//gerer les couleurs.
 
 	i = (4 * (x + (y * img->img_w)));
-	img->img_addr[i + 0] = 0xFF;
-	img->img_addr[i + 1] = 0xFF;
-	img->img_addr[i + 2] = 0xFF;
-	img->img_addr[i + 3] = 0x00;
-
+	if (i < (4 * img->img_w * img->img_h)-4)
+	{
+		img->img_addr[i + 0] = colour & 0x000000FF;
+		img->img_addr[i + 1] = (colour >> 8) & 0x000000FF;
+		img->img_addr[i + 2] = (colour >> 16) & 0x000000FF;
+		img->img_addr[i + 3] = 0x00;
+	}
 }
 
-void	ft_choose_side(int	dq, int dp, int x, int y, t_image *image)
+/*void	ft_choose_side(int	dx, int dy, int x, int y, int xinc, int yinc, t_image *image, int colour)
 {
+	int i;
+	int cumul;
+
+		cumul = (dx / 2);
+		i = 1;
+		while (i <= dx)
+		{
+			x = x + xinc;
+			cumul = cumul + dy;
+			if (cumul >= dx)
+			{
+				cumul = cumul - dx;
+				y = y + yinc;
+			}
+			ft_pixel_put_img(image, x, y, colour);
+			i++;
+		}
+
+
+
 	int		i;
 	int		qinc;
 	int		pinc;
@@ -46,10 +68,10 @@ void	ft_choose_side(int	dq, int dp, int x, int y, t_image *image)
 			cumul = cumul - dq;
 			y = y + pinc;
 		}
-		ft_pixel_put_img(image, x, y);
+		ft_pixel_put_img(image, x, y, colour);
 		i++;
 	}
-}
+}*/
 
 void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 {
@@ -62,7 +84,6 @@ void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 	int		yinc;
 	int		cumul;
 
-	(void)colour;
 	x = x1;
 	y = y1;
 	dx = x2 - x1;
@@ -72,9 +93,9 @@ void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 	dx = (dx < 0) ? -dx : dx;
 	dy = (dy < 0) ? -dy : dy;
 
-	ft_pixel_put_img(image, x, y);
+	ft_pixel_put_img(image, x, y, colour);
 	if (dx > dy)
-//		ft_choose_side(dx, dy, x, y, map);
+//		ft_choose_side(dx, dy, x, y, xinc, yinc, image, colour);
 	{
 		cumul = (dx / 2);
 		i = 1;
@@ -87,12 +108,12 @@ void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 				cumul = cumul - dx;
 				y = y + yinc;
 			}
-			ft_pixel_put_img(image, x, y);
+			ft_pixel_put_img(image, x, y, colour);
 			i++;
 		}
 	}
 	else 
-//		ft_choose_side(dy, dx, y, x, map);
+//		ft_choose_side(dy, dx, y, x, yinc, xinc, image, colour);
 	{
 		cumul = (dy / 2);
 		i = 1;
@@ -105,36 +126,35 @@ void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 				cumul = cumul - dy;
 				x = x + xinc;
 			}
-			ft_pixel_put_img(image, x, y);
+			ft_pixel_put_img(image, x, y, colour);
 			i++;
 		}
 	}
 }
 
-/*
 int			ft_getcolour(char *point)
 {
 	int		i;
 	char	*tmp;
 	char	*char_colour;
-//	int		*int_colour;
+	int		int_colour;
+				ft_putendl(HIGHLIGHT"PHASE 4 BIS --> GET COLOUR\n"RESET);
 
 	i = 0;
-	// Check si cet int fait blanc
-//	int_colour = 255 + 255 + 255; 
-	while (tmp)
+	tmp = point;
+	while (tmp[0] != '\0')
 	{
 		if (tmp[0] == ',' && tmp[2] == 'x')
 		{
+			tmp = tmp + 3;
 			char_colour = tmp;
-			return 
-			//int_colour = ft_atoi_base(char_colour);
-			//return(int_colour);
+			int_colour = ft_atoi_base(char_colour, 16);
+			return(int_colour);
 		}
 		tmp++;
 	}
-	return(int_colour);
-}*/
+	return(16777215);
+}
 
 void		ft_design_image(t_map *map, t_data *data, t_image *image)
 {
@@ -151,9 +171,8 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 	int gap;
 	float coeff;
 	float coeff_alti;
-//	int		colour;
-//(void)data;
-(void)map;
+	int		colour;
+	(void)map;
 				ft_putendl(HIGHLIGHT"\nPHASE 4 --> DISPLAY IMAGE\n"RESET);
 
  	x_orig = image->x_orig;
@@ -167,11 +186,12 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 	after = after->next;
 				ft_putendl(HIGHLIGHT"tmp + after initialises"RESET);
 
-	while (tmp->next != NULL && after->next != NULL )
+	while (tmp->next != NULL && after->next != NULL)
 	{
 		x = 0;
 		while (tmp->data_line && tmp->data_line[x])
 		{
+			colour = ft_getcolour(tmp->data_line[x]);
 			w = 0;
 			v = 0;
 			z = 0;
@@ -185,9 +205,9 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 			repeat = x * (gap/2); // Pour se deplacer de case en case.
 
 			//a - > b
-			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti) - (gap * coeff), 0x00FFFFFF);
+			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti) - (gap * coeff), colour);
 			//d - > a
-			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (v * coeff_alti) + (gap * coeff), 0x00FFFFFF);
+			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (v * coeff_alti) + (gap * coeff), colour);
 				
 			x++;
 		}
