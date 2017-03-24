@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/23 20:21:02 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/24 13:03:39 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@
 # define WIN_NAME "My window without curtains"
 # define GAP 25
 
-typedef struct		s_image
-{
-	int		img_h;
-	int		img_w;
-	int		x_orig;
-	int		y_orig;
-	int		gap;
-	char	*img_addr;
-}					t_image;
 
 typedef struct		s_fdf
 {
@@ -38,6 +29,18 @@ typedef struct		s_fdf
 	void	*img; //image
 	char	*img_addr;
 }					t_fdf;
+
+typedef struct		s_image
+{
+	int		img_h;
+	int		img_w;
+	int		x_orig;
+	int		y_orig;
+	int		gap;
+	char	*img_addr;
+	t_fdf	fdf;
+}					t_image;
+
 
 typedef struct		s_map
 {
@@ -66,6 +69,7 @@ t_data				*ft_addnewdatalst();
 t_map				*ft_parsemap(t_data *data);
 int					ft_checkdata(char **data);
 
+t_image				*ft_get_img_param(t_map *map, float k);
 void				ft_graph_part(t_map *map, t_data *data);
 void				ft_createwindow(t_map *map, t_data *data, t_image *image);
 

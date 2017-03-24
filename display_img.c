@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 14:06:14 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/23 20:20:58 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/24 20:37:23 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ void	ft_pixel_put_img(t_image *img, int x, int y, int colour)
 {
 	int		i;
 
-	//gerer les couleurs.
-
-	i = (4 * (x + (y * img->img_w)));
-	if (i < (4 * img->img_w * img->img_h)-4)
+	if (x >= 0 && y >= 0)
 	{
-		img->img_addr[i + 0] = colour & 0x000000FF;
-		img->img_addr[i + 1] = (colour >> 8) & 0x000000FF;
-		img->img_addr[i + 2] = (colour >> 16) & 0x000000FF;
-		img->img_addr[i + 3] = 0x00;
+		i = (4 * (x + (y * img->img_w)));
+		if (i < (4 * img->img_w * img->img_h)-4)
+		{
+			img->img_addr[i + 0] = colour & 0x000000FF;
+			img->img_addr[i + 1] = (colour >> 8) & 0x000000FF;
+			img->img_addr[i + 2] = (colour >> 16) & 0x000000FF;
+			img->img_addr[i + 3] = 0x00;
+		}
 	}
 }
 
@@ -138,7 +139,6 @@ int			ft_getcolour(char *point)
 	char	*tmp;
 	char	*char_colour;
 	int		int_colour;
-				ft_putendl(HIGHLIGHT"PHASE 4 BIS --> GET COLOUR\n"RESET);
 
 	i = 0;
 	tmp = point;
@@ -184,8 +184,6 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 	tmp = data;
 	after = data;
 	after = after->next;
-				ft_putendl(HIGHLIGHT"tmp + after initialises"RESET);
-
 	while (tmp->next != NULL && after->next != NULL)
 	{
 		x = 0;
@@ -194,8 +192,6 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 			colour = ft_getcolour(tmp->data_line[x]);
 			w = 0;
 			v = 0;
-			z = 0;
-			
 			z = ft_atoi(tmp->data_line[x]);
 			if (tmp->data_line[x + 1])
 				w = ft_atoi(tmp->data_line[x + 1]);
@@ -203,20 +199,28 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 				v = ft_atoi(after->data_line[x]);
 				
 			repeat = x * (gap/2); // Pour se deplacer de case en case.
-
-			//a - > b
-			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti) - (gap * coeff), colour);
-			//d - > a
+			
+			if (tmp->data_line[x+1])
+			{		 //a - > b
+				ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti) - (gap * coeff), colour);
+			}
+						//d - > a
 			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (v * coeff_alti) + (gap * coeff), colour);
-				
+			if (after->next->next == NULL && tmp->data_line[x+1])
+			{		//c - > d
+				z = v;
+				w = 0;
+				ft_drawline_img(image, x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (z * coeff_alti) +(gap * coeff), x_orig + (repeat) + (gap/2) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti), colour);
+
+			}
+		
 			x++;
 		}
 		y++;
-		tmp = tmp->next;
-		after = after->next;
 		//Point de depart + repetition - Pour se deplacer de ligne en ligne avec le decalage.
 		x_orig = image->x_orig + (y * (gap/2)); 
 		y_orig = image->y_orig + (y * gap * coeff);
+		tmp = tmp->next;
+		after = after->next;
 	}
-
 }
