@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 14:06:14 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/24 20:37:23 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/25 18:50:10 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_pixel_put_img(t_image *img, int x, int y, int colour)
 {
 	int		i;
 
-	if (x >= 0 && y >= 0)
+	if (x >= 0 && y >= 0 && x < img->img_w)
 	{
 		i = (4 * (x + (y * img->img_w)));
 		if (i < (4 * img->img_w * img->img_h)-4)
@@ -156,7 +156,7 @@ int			ft_getcolour(char *point)
 	return(16777215);
 }
 
-void		ft_design_image(t_map *map, t_data *data, t_image *image)
+void		ft_design_image(t_data *data, t_image *image)
 {
 	t_data *tmp;
 	t_data *after;
@@ -172,7 +172,6 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 	float coeff;
 	float coeff_alti;
 	int		colour;
-	(void)map;
 				ft_putendl(HIGHLIGHT"\nPHASE 4 --> DISPLAY IMAGE\n"RESET);
 
  	x_orig = image->x_orig;
@@ -208,8 +207,8 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 			ft_drawline_img(image, x_orig + (repeat), y_orig - (x * gap * coeff) - (z * coeff_alti), x_orig + (repeat)+ (gap/2), y_orig - (x * gap * coeff) - (v * coeff_alti) + (gap * coeff), colour);
 			if (after->next->next == NULL && tmp->data_line[x+1])
 			{		//c - > d
+		//		w = w - w - z;
 				z = v;
-				w = 0;
 				ft_drawline_img(image, x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (z * coeff_alti) +(gap * coeff), x_orig + (repeat) + (gap/2) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti), colour);
 
 			}
@@ -217,10 +216,10 @@ void		ft_design_image(t_map *map, t_data *data, t_image *image)
 			x++;
 		}
 		y++;
+		tmp = tmp->next;
+		after = after->next;
 		//Point de depart + repetition - Pour se deplacer de ligne en ligne avec le decalage.
 		x_orig = image->x_orig + (y * (gap/2)); 
 		y_orig = image->y_orig + (y * gap * coeff);
-		tmp = tmp->next;
-		after = after->next;
 	}
 }
