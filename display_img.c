@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 14:06:14 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/25 18:50:10 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/27 16:20:24 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 	}
 }
 
-int			ft_getcolour(char *point)
+int			ft_getcolour(char *point, char *img_colour)
 {
 	int		i;
 	char	*tmp;
@@ -146,6 +146,7 @@ int			ft_getcolour(char *point)
 	{
 		if (tmp[0] == ',' && tmp[2] == 'x')
 		{
+			ft_putendl("Je prends la couleur de la map");
 			tmp = tmp + 3;
 			char_colour = tmp;
 			int_colour = ft_atoi_base(char_colour, 16);
@@ -153,7 +154,8 @@ int			ft_getcolour(char *point)
 		}
 		tmp++;
 	}
-	return(16777215);
+			ft_putendl("Je prends la couleur defini");
+	return(ft_atoi_base(img_colour, 16));
 }
 
 void		ft_design_image(t_data *data, t_image *image)
@@ -177,8 +179,8 @@ void		ft_design_image(t_data *data, t_image *image)
  	x_orig = image->x_orig;
 	y_orig = image->y_orig;
 	gap = image->gap; // Taille de la diagonale d'une case. (ZOOM +/-)
-	coeff = 0.3; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
-	coeff_alti = gap * 3/4;
+	coeff = image->coeff; // [0 ; 0.5] Oriente la vue du plan. (DESSUS/DESSOUS)
+	coeff_alti = image->coef_h;
 	y = 0;
 	tmp = data;
 	after = data;
@@ -188,7 +190,7 @@ void		ft_design_image(t_data *data, t_image *image)
 		x = 0;
 		while (tmp->data_line && tmp->data_line[x])
 		{
-			colour = ft_getcolour(tmp->data_line[x]);
+			colour = ft_getcolour(tmp->data_line[x], image->colour);
 			w = 0;
 			v = 0;
 			z = ft_atoi(tmp->data_line[x]);
@@ -209,6 +211,7 @@ void		ft_design_image(t_data *data, t_image *image)
 			{		//c - > d
 		//		w = w - w - z;
 				z = v;
+				w = 0;
 				ft_drawline_img(image, x_orig + (repeat) + (gap/2), y_orig - (x * gap * coeff) - (z * coeff_alti) +(gap * coeff), x_orig + (repeat) + (gap/2) + (gap/2), y_orig - (x * gap * coeff) - (w * coeff_alti), colour);
 
 			}
