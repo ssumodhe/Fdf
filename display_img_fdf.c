@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_img.c                                      :+:      :+:    :+:   */
+/*   display_img_fdf.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/20 14:06:14 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/27 16:20:24 by ssumodhe         ###   ########.fr       */
+/*   Created: 2017/03/27 18:04:02 by ssumodhe          #+#    #+#             */
+/*   Updated: 2017/03/27 19:18:25 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_pixel_put_img(t_image *img, int x, int y, int colour)
+void		ft_pixel_put_img(t_image *img, int x, int y, int colour)
 {
 	int		i;
 
@@ -74,7 +74,7 @@ void	ft_pixel_put_img(t_image *img, int x, int y, int colour)
 	}
 }*/
 
-void	ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
+void		ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
 {
 	int		i;
 	int		x;
@@ -146,7 +146,6 @@ int			ft_getcolour(char *point, char *img_colour)
 	{
 		if (tmp[0] == ',' && tmp[2] == 'x')
 		{
-			ft_putendl("Je prends la couleur de la map");
 			tmp = tmp + 3;
 			char_colour = tmp;
 			int_colour = ft_atoi_base(char_colour, 16);
@@ -154,7 +153,6 @@ int			ft_getcolour(char *point, char *img_colour)
 		}
 		tmp++;
 	}
-			ft_putendl("Je prends la couleur defini");
 	return(ft_atoi_base(img_colour, 16));
 }
 

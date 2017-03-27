@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:25:47 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/24 19:23:26 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/27 17:39:49 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_get_highest(t_data *data, t_map *map)
 	map->lowest = compare_l;
 }
 
-int		ft_checkdata(char **data)
+int			ft_checkdata(char **data)
 {
 	int		a;
 	int		b;
@@ -54,7 +54,8 @@ int		ft_checkdata(char **data)
 		b = 0;
 		while (data[a][b] != '\0')
 		{
-			if ((data[a][b] < 48 || data[a][b] > 57) && (data[a][b] < 65 || data[a][b] > 90) \
+			if ((data[a][b] < 48 || data[a][b] > 57) && \
+					(data[a][b] < 65 || data[a][b] > 90) \
 					&& (data[a][b] < 97 || data[a][b] > 122) \
 					&& (data[a][b] != ',') && (data[a][b] != '-'))
 				ft_exit(RED"map: incorrect"RESET);
@@ -68,23 +69,21 @@ int		ft_checkdata(char **data)
 	return (nb);
 }
 
-t_map	*ft_parsemap(t_data	*data)
+t_map		*ft_parsemap(t_data *data)
 {
 	t_data	*tmp;
 	t_map	*map;
 	t_map	*tmp_map;
 	int		compare;
 
-				ft_putendl(HIGHLIGHT"\nPHASE 2 --> PARSING\n"RESET);
-
 	tmp = data;
-	if ((map = (t_map *)malloc(sizeof(* map))) == NULL)
+	if ((map = (t_map *)malloc(sizeof(*map))) == NULL)
 		ft_exit(RED"error malloc t_map *map"RESET);
 	map->height = 0;
 	compare = 0;
 	while (tmp->next != NULL)
 	{
-		// dire que tmp->line[0] si != '-' ou d'un chiffre : mauvais
+	// dire que tmp->line[0] si != '-' ou d'un chiffre : mauvais
 		if (tmp->line[0] == '\n' || tmp->line[0] == '\0')
 			ft_exit(RED"map: incorrect"RESET);
 		map->width = ft_checkdata(tmp->data_line);
@@ -96,14 +95,5 @@ t_map	*ft_parsemap(t_data	*data)
 	}
 	tmp_map = map;
 	ft_get_highest(data, map);
-
-	ft_putstr("high point = ");
-	ft_putnbr(map->highest);
-	ft_putchar('\n');
-	ft_putstr("low point = ");
-	ft_putnbr(map->lowest);
-	ft_putchar('\n');
-
-	ft_putendl(GREEN"map: OK\n"RESET);
 	return (map);
 }
