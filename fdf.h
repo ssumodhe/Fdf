@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/27 20:07:19 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/28 21:10:30 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@
 # define CHAR_RED "0x00FF0000"
 # define CHAR_GREEN "0x0000FF00"
 # define CHAR_YELLOW "0x00FFD700"
+/*
+typedef struct		s_drwln
+{
+}					t_drwln;*/
+
+typedef struct		s_ptcalc
+{
+	int		x;
+	int		y;
+	int		dx;
+	int 	dy;
+	int		xinc;
+	int 	yinc;
+}					t_ptcalc;
 
 typedef struct		s_fdf
 {
@@ -42,6 +56,7 @@ typedef struct		s_image
 	int		y_orig;
 	int		gap;
 	float	coeff;
+	float	coeff_view;
 	float	coef_h;
 	char	*colour;
 	char	*img_addr;
@@ -54,7 +69,7 @@ typedef struct		s_map
 	int		width;
 	int		highest;
 	int		lowest;
-	int		k;
+	float		k;
 	t_fdf	fdf;
 }					t_map;
 
@@ -84,11 +99,22 @@ void				ft_putframe(t_image *image);
 
 void				ft_design_image(t_data *data, t_image *image);
 int					ft_getcolour(char *point, char *img_colour);
+
 void				ft_drawline_img(t_image *image, int x1, int y1, int x2, int y2, int colour);
-void				ft_choose_side(int dx, int dy, int x, int y, int xinc, int yinc, t_image *image, int colour);
+void				ft_choose_side_x(t_ptcalc pc, t_image *image, int colour);
+void				ft_choose_side_y(t_ptcalc pc, t_image *image, int colour);
 void				ft_pixel_put_img(t_image *img, int x, int y, int colour);
+
 int					ft_atoi_base(const char *str, int str_base);
 
 int					ft_key(int keycode, t_data *data);
+void				ft_key_colour(int keycode, t_data *data);
+void				ft_key_vertihori(int keycode, t_data *data);
+void				ft_key_diag(int keycode, t_data *data);
+void				ft_key_init(t_data *data);
+
+void				ft_key_updownview(int keycode, t_data *data);
+void				ft_key_zoom(int keycode, t_data *data);
+//void				ft_key_around(int keycode, t_data *data);
 
 #endif
