@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/28 21:10:30 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/30 21:29:28 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include <mlx.h>
 # include <fcntl.h>
 # include <math.h>
 
@@ -25,13 +25,29 @@
 # define CHAR_RED "0x00FF0000"
 # define CHAR_GREEN "0x0000FF00"
 # define CHAR_YELLOW "0x00FFD700"
-/*
+
 typedef struct		s_drwln
 {
-}					t_drwln;*/
+	int		x;
+	int		y;
+	int 	x_orig;
+	int		y_orig;
+	int		z;
+	int		w;
+	int		v;
+	int		repeat;
+	int		gap;
+	float	coeff;
+	float	coeff_alti;
+}					t_drwln;
 
 typedef struct		s_ptcalc
 {
+	int		x1;
+	int		y1;
+	int		x2;
+	int 	y2;
+	int		colour;
 	int		x;
 	int		y;
 	int		dx;
@@ -42,9 +58,9 @@ typedef struct		s_ptcalc
 
 typedef struct		s_fdf
 {
-	void	*mlx; //serveur
-	void	*win; //fenetre
-	void	*img; //image
+	void	*mlx;
+	void	*win;
+	void	*img;
 	char	*img_addr;
 }					t_fdf;
 
@@ -95,17 +111,14 @@ t_image				*ft_get_img_param(t_map *map, float k);
 void				ft_graph_part(t_map *map, t_data *data);
 void				ft_createwindow(t_data *data, t_image *image);
 void				ft_createimage(t_data *data, t_image *image);
-void				ft_putframe(t_image *image);
 
 void				ft_design_image(t_data *data, t_image *image);
 int					ft_getcolour(char *point, char *img_colour);
 
-void				ft_drawline_img(t_image *image, int x1, int y1, int x2, int y2, int colour);
-void				ft_choose_side_x(t_ptcalc pc, t_image *image, int colour);
-void				ft_choose_side_y(t_ptcalc pc, t_image *image, int colour);
+void				ft_drawline_img(t_image *image, t_ptcalc pc);
+void				ft_choose_side_x(t_ptcalc pc, t_image *image);
+void				ft_choose_side_y(t_ptcalc pc, t_image *image);
 void				ft_pixel_put_img(t_image *img, int x, int y, int colour);
-
-int					ft_atoi_base(const char *str, int str_base);
 
 int					ft_key(int keycode, t_data *data);
 void				ft_key_colour(int keycode, t_data *data);
@@ -116,5 +129,10 @@ void				ft_key_init(t_data *data);
 void				ft_key_updownview(int keycode, t_data *data);
 void				ft_key_zoom(int keycode, t_data *data);
 //void				ft_key_around(int keycode, t_data *data);
+
+void				ft_putframe(t_image *image);
+void				ft_putguide(t_image *im);
+void				ft_putguide_moves(t_image *im);
+void				ft_putguide_colours(t_image *im);
 
 #endif

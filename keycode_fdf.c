@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 19:21:17 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/28 18:00:07 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/30 21:29:09 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		ft_key_init(t_data *data)
 {
 	int gap;
 
-	gap = GAP / data->map->k;
+	gap = (GAP / data->map->k);
 	data->image->img_h = (((data->map->height + 5) * 2) * gap * 0.3) + \
 			((data->map->highest + fabs((double)data->map->lowest)) * \
 			(gap * 3 / 4));
@@ -111,8 +111,8 @@ int			ft_key(int keycode, t_data *data)
 		exit(0);
 	if (keycode <= 16)
 		ft_key_colour(keycode, data);
-//	if(keycode == 69 || keycode == 78)
-//		ft_key_zoom(keycode, data);
+	if(keycode == 69 || keycode == 78)
+		ft_key_zoom(keycode, data);
 	if (keycode == 87)
 		ft_key_init(data);
 	if (keycode == 84 || keycode == 86 || keycode == 88 || keycode == 91)

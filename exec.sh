@@ -1,1 +1,1 @@
-clang -g -Wall -Werror -Wextra -lm -lmlx -framework OpenGL -framework Appkit main_fdf.c parsing_fdf.c prog_fdf.c getmap_fdf.c graph_fdf.c display_img_fdf.c keycode_fdf.c ft_atoi_base.c keycode_2_fdf.c display_img_2_fdf.c libft/libft.a
+clang -g -Wall -Werror -Wextra -lm -lmlx -framework OpenGL -framework Appkit main_fdf.c parsing_fdf.c prog_fdf.c getmap_fdf.c graph_fdf.c display_img_fdf.c keycode_fdf.c keycode_2_fdf.c display_img_2_fdf.c display_win_fdf.c libft/libft.a

@@ -6,21 +6,11 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/28 19:45:18 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/30 21:29:06 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void		ft_putframe(t_image *image)
-{
-	ft_drawline_img(image, 0, 0, (image->img_w - 1), 0, 0x00FFFFFF);
-	ft_drawline_img(image, (image->img_w - 1), 0, (image->img_w - 1), \
-			(image->img_h - 1), 0x00FFFFFF);
-	ft_drawline_img(image, (image->img_w - 1), (image->img_h - 1), 0, \
-			(image->img_h - 1), 0x00FFFFFF);
-	ft_drawline_img(image, 0, (image->img_h - 1), 0, 0, 0x00FFFFFF);
-}
 
 void		ft_createimage(t_data *data, t_image *image)
 {
@@ -36,8 +26,8 @@ void		ft_createimage(t_data *data, t_image *image)
 		ft_exit("error creation image");
 	image->img_addr = mlx_get_data_addr(image->fdf.img, &bits_per_pixel, \
 			&size_line, &endian);
-	ft_putframe(image);
 	ft_design_image(data, image);
+	ft_putframe(image);
 	mlx_put_image_to_window(image->fdf.mlx, image->fdf.win, \
 			image->fdf.img, GAP, GAP);
 }
@@ -45,10 +35,15 @@ void		ft_createimage(t_data *data, t_image *image)
 void		ft_createwindow(t_data *data, t_image *image)
 {
 	image->fdf.mlx = mlx_init();
-	image->fdf.win = mlx_new_window(image->fdf.mlx, image->img_w + (GAP * 2), \
+	if (image->img_h >= (GAP + 275))
+		image->fdf.win = mlx_new_window(image->fdf.mlx, image->img_w + (GAP * 2) + 250, \
 			image->img_h + (GAP * 2), WIN_NAME);
+	else
+		image->fdf.win = mlx_new_window(image->fdf.mlx, image->img_w + (GAP * 2) + 250, \
+			((GAP * 2) + 275) + (GAP * 2), WIN_NAME);
 	ft_createimage(data, image);
 	mlx_key_hook(image->fdf.win, ft_key, data);
+	ft_putguide(image);
 	mlx_loop(image->fdf.mlx);
 }
 
@@ -59,7 +54,6 @@ t_image		*ft_get_img_param(t_map *map, float k)
 
 	if (!(img_param = (t_image *)malloc(sizeof(*img_param))))
 		ft_exit("error malloc t_image *image");
-	map->k = k;
 	gap = GAP / k;
 	img_param->img_h = (((map->height + 5) * 2) * gap * 0.3) + \
 				((map->highest + fabs((double)map->lowest)) * (gap * 3 / 4));
@@ -89,15 +83,18 @@ void		ft_graph_part(t_map *map, t_data *data)
 		k = (img_param->img_h / 1400);
 		if (k == 1)
 			k++;
+		map->k = k;//idem
 		img_param = ft_get_img_param(map, k);
 	}
-	if (img_param->img_w > 2560)
+	if (img_param->img_w > (2560 - 300))
 	{
-		k = (img_param->img_w / 2560);
+		k = (img_param->img_w / (2560 - 300));
 		if (k == 1)
 			k++;
+		map->k = k; //a check aussi
 		img_param = ft_get_img_param(map, k);
 	}
+	data->map = map; //a check if needed
 	data->image = img_param;
 	ft_createwindow(data, img_param);
 }

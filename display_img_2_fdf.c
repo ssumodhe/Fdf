@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 19:18:28 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/28 20:42:36 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/30 14:16:00 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		ft_pixel_put_img(t_image *img, int x, int y, int colour)
 	}
 }
 
-void		ft_choose_side_x(t_ptcalc pc, t_image *image, int colour)
+void		ft_choose_side_x(t_ptcalc pc, t_image *image)
 {
 	int		cumul;
 	int		i;
@@ -45,12 +45,12 @@ void		ft_choose_side_x(t_ptcalc pc, t_image *image, int colour)
 			cumul = cumul - pc.dx;
 			pc.y = pc.y + pc.yinc;
 		}
-		ft_pixel_put_img(image, pc.x, pc.y, colour);
+		ft_pixel_put_img(image, pc.x, pc.y, pc.colour);
 		i++;
 	}
 }
 
-void		ft_choose_side_y(t_ptcalc pc, t_image *image, int colour)
+void		ft_choose_side_y(t_ptcalc pc, t_image *image)
 {
 	int		cumul;
 	int		i;
@@ -66,26 +66,24 @@ void		ft_choose_side_y(t_ptcalc pc, t_image *image, int colour)
 			cumul = cumul - pc.dy;
 			pc.x = pc.x + pc.xinc;
 		}
-		ft_pixel_put_img(image, pc.x, pc.y, colour);
+		ft_pixel_put_img(image, pc.x, pc.y, pc.colour);
 		i++;
 	}
 }
 
-void		ft_drawline_img(t_image *image,int x1, int y1, int x2, int y2, int colour)
+void		ft_drawline_img(t_image *image, t_ptcalc pc)
 {
-	t_ptcalc pc;
-
-	pc.x = x1;
-	pc.y = y1;
-	pc.dx = x2 - x1;
-	pc.dy = y2 - y1;
+	pc.x = pc.x1;
+	pc.y = pc.y1;
+	pc.dx = pc.x2 - pc.x1;
+	pc.dy = pc.y2 - pc.y1;
 	pc.xinc = (pc.dx > 0) ? 1 : -1;
 	pc.yinc = (pc.dy > 0) ? 1 : -1;
 	pc.dx = (pc.dx < 0) ? -pc.dx : pc.dx;
 	pc.dy = (pc.dy < 0) ? -pc.dy : pc.dy;
-	ft_pixel_put_img(image, pc.x, pc.y, colour);
+	ft_pixel_put_img(image, pc.x, pc.y, pc.colour);
 	if (pc.dx > pc.dy)
-		ft_choose_side_x(pc, image, colour);
+		ft_choose_side_x(pc, image);
 	else
-		ft_choose_side_y(pc, image, colour);
+		ft_choose_side_y(pc, image);
 }
