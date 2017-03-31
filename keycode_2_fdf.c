@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 17:07:27 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/30 21:20:23 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/31 15:27:37 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_key_zoom(int keycode, t_data *data)
 	if (keycode == 78)
 	{
 		gap = data->image->gap - 5;
-		if (gap >= 10)
+		if (gap >= 5)
 		{
 			data->image->gap = gap;
 			data->image->coef_h = data->image->gap * 3 /4;

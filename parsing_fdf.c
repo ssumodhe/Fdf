@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:25:47 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/27 17:39:49 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:24:53 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			ft_checkdata(char **data)
 		nb++;
 		a++;
 	}
-	if (nb == 0)
+	if (nb == 0 || nb == 1)
 		ft_exit(RED"map: incorrect"RESET);
 	return (nb);
 }

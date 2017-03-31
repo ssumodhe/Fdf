@@ -6,23 +6,31 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 19:21:00 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/30 19:33:13 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/31 16:24:33 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void		ft_putguide_views(t_image *im)
+{
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 280, \
+			0x00FFFFFF, "zoom in  : key +");
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 295, \
+			0x00FFFFFF, "zoom out : key -");
+}
+
 void		ft_putguide_colours(t_image *im)
 {
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 175, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 180, \
 			0x00FF0000, "red    : key r");
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 190, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 195, \
 			0x0000868B, "blue   : key b");
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 205, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 210, \
 			0x00FFD700, "yellow : key y");
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 220, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 225, \
 			0x0000FF00, "green  : key g");
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 235, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 240, \
 			0x00FFFFFF, "white  : key w");
 }
 
@@ -53,12 +61,15 @@ void		ft_putguide(t_image *im)
 	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 20, \
 			0x00FFFFFF, " - moves");
 	ft_putguide_moves(im);
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 160, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 165, \
 			0x00FFFFFF, " - colours");
 	ft_putguide_colours(im);
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 260, \
-			0x00FFFFFF, "reset : key 5");
-	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 275, \
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 265, \
+			0x00FFFFFF, " - views");
+	ft_putguide_views(im);
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 320, \
+			0x00FFFFFF, "reset : key 0 or key 5");
+	mlx_string_put(im->fdf.mlx, im->fdf.win, im->img_w + (GAP * 2), GAP + 335, \
 			0x00FFFFFF, "quit  : esc");
 }
 

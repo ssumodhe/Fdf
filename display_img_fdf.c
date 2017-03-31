@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 18:04:02 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/30 19:38:43 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/31 16:25:30 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,38 @@ int			ft_getcolour(char *point, char *img_colour)
 			tmp = tmp + 3;
 			char_colour = tmp;
 			int_colour = ft_atoi_base(char_colour, 16);
-			return(int_colour);
+			return (int_colour);
 		}
 		tmp++;
 	}
-	return(ft_atoi_base(img_colour, 16));
+	return (ft_atoi_base(img_colour, 16));
 }
 
-void		ft_getline(t_data *tmp, /*t_data *after,*/ t_image *image, t_ptcalc pc, t_drwln dl)
+void		ft_getline(t_data *tmp, t_data *after, t_image *image, t_ptcalc pc, t_drwln dl)
 {
-	if (tmp->data_line[dl.x+1])
+	if (tmp->data_line[dl.x + 1])
 	{		 //a - > b
 		pc.x1 = dl.x_orig + (dl.repeat);
 		pc.y1 = dl.y_orig - (dl.x * dl.gap * dl.coeff) - (dl.z * dl.coeff_alti);
-		pc.x2 = dl.x_orig + (dl.repeat) + (dl.gap/2);
+		pc.x2 = dl.x_orig + (dl.repeat) + (dl.gap / 2);
 		pc.y2 = dl.y_orig - (dl.x * dl.gap * dl.coeff) - (dl.w * dl.coeff_alti) - (dl.gap * dl.coeff);
 		ft_drawline_img(image, pc);
 	}
-	//d - > a
 	pc.x1 = dl.x_orig + (dl.repeat);
 	pc.y1 = dl.y_orig - (dl.x * dl.gap * dl.coeff) - (dl.z * dl.coeff_alti);
 	pc.x2 = dl.x_orig + (dl.repeat)+ (dl.gap/2);
 	pc.y2 = dl.y_orig - (dl.x * dl.gap * dl.coeff) - (dl.v * dl.coeff_alti) + (dl.gap * dl.coeff);
 	ft_drawline_img(image, pc);
-/*	if (after->next->next == NULL && tmp->data_line[dl.x+1])
+	if (after->next->next == NULL && tmp->data_line[dl.x+1])
 	{		//c - > d
-		//		w = w - w - z;
-		dl.w = 0;
+		dl.w = ft_atoi(after->data_line[dl.x + 1]);
 		dl.z = dl.v;
 		pc.x1 = dl.x_orig + (dl.repeat) + (dl.gap/2);
 		pc.y1 = dl.y_orig - (dl.x * dl.gap * dl.coeff) - (dl.z * dl.coeff_alti) +(dl.gap * dl.coeff);
 		pc.x2 = dl.x_orig + (dl.repeat) + (dl.gap/2) + (dl.gap/2);
 		pc.y2 = dl.y_orig - (dl.x * dl.gap * dl.coeff) - (dl.w * dl.coeff_alti);
 		ft_drawline_img(image, pc);
-	}*/
+	}
 }
 
 t_drwln		ft_getalti(t_data *tmp, t_data *after, t_drwln dl)
@@ -109,7 +107,7 @@ void		ft_design_image(t_data *data, t_image *image)
 		{
 			pc.colour = ft_getcolour(tmp->data_line[dl.x], image->colour);
 			dl = ft_getalti(tmp, after, dl);
-			ft_getline(tmp,/* after,*/ image, pc, dl);
+			ft_getline(tmp, after, image, pc, dl);
 			dl.x++;
 		}
 		dl.y++;

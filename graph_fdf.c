@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/30 21:29:06 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:08:46 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void		ft_createimage(t_data *data, t_image *image)
 void		ft_createwindow(t_data *data, t_image *image)
 {
 	image->fdf.mlx = mlx_init();
-	if (image->img_h >= (GAP + 275))
+	if (image->img_h >= (GAP + 345))
 		image->fdf.win = mlx_new_window(image->fdf.mlx, image->img_w + (GAP * 2) + 250, \
 			image->img_h + (GAP * 2), WIN_NAME);
 	else
 		image->fdf.win = mlx_new_window(image->fdf.mlx, image->img_w + (GAP * 2) + 250, \
-			((GAP * 2) + 275) + (GAP * 2), WIN_NAME);
+			((GAP * 2) + 345) + (GAP * 2), WIN_NAME);
 	ft_createimage(data, image);
 	mlx_key_hook(image->fdf.win, ft_key, data);
 	ft_putguide(image);
@@ -77,24 +77,21 @@ void		ft_graph_part(t_map *map, t_data *data)
 	t_image	*img_param;
 	float	k;
 
-	img_param = ft_get_img_param(map, 1);
+	k = 1;
+	img_param = ft_get_img_param(map, k);
 	if (img_param->img_h > 1400)
 	{
 		k = (img_param->img_h / 1400);
-		if (k == 1)
-			k++;
-		map->k = k;//idem
-		img_param = ft_get_img_param(map, k);
+		k++;
 	}
-	if (img_param->img_w > (2560 - 300))
+	if (img_param->img_w > (2560 - 100))
 	{
-		k = (img_param->img_w / (2560 - 300));
-		if (k == 1)
-			k++;
-		map->k = k; //a check aussi
-		img_param = ft_get_img_param(map, k);
+		k = (img_param->img_w / (2560 - 100));
+		k++;
 	}
-	data->map = map; //a check if needed
+	img_param = ft_get_img_param(map, k);
+	map->k = k;
+	data->map = map;
 	data->image = img_param;
 	ft_createwindow(data, img_param);
 }
