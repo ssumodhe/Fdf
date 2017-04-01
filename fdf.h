@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/03/30 21:29:28 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/04/01 18:56:09 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct		s_drwln
 {
 	int		x;
 	int		y;
-	int 	x_orig;
+	int		x_orig;
 	int		y_orig;
 	int		z;
 	int		w;
@@ -46,14 +46,14 @@ typedef struct		s_ptcalc
 	int		x1;
 	int		y1;
 	int		x2;
-	int 	y2;
+	int		y2;
 	int		colour;
 	int		x;
 	int		y;
 	int		dx;
-	int 	dy;
+	int		dy;
 	int		xinc;
-	int 	yinc;
+	int		yinc;
 }					t_ptcalc;
 
 typedef struct		s_fdf
@@ -85,7 +85,7 @@ typedef struct		s_map
 	int		width;
 	int		highest;
 	int		lowest;
-	float		k;
+	float	k;
 	t_fdf	fdf;
 }					t_map;
 
@@ -113,8 +113,14 @@ void				ft_createwindow(t_data *data, t_image *image);
 void				ft_createimage(t_data *data, t_image *image);
 
 void				ft_design_image(t_data *data, t_image *image);
-int					ft_getcolour(char *point, char *img_colour);
+t_drwln				ft_init_drwln(t_image *image);
+t_drwln				ft_getalti(t_data *tmp, t_data *after, t_drwln dl);
+void				ft_getline(t_data *tmp, t_data *after, t_ptcalc pc, \
+						t_drwln dl);
+void				ft_getline_lastline(t_data *after, t_ptcalc pc, \
+						t_drwln dl);
 
+int					ft_getcolour(char *point, char *img_colour);
 void				ft_drawline_img(t_image *image, t_ptcalc pc);
 void				ft_choose_side_x(t_ptcalc pc, t_image *image);
 void				ft_choose_side_y(t_ptcalc pc, t_image *image);
@@ -126,9 +132,9 @@ void				ft_key_vertihori(int keycode, t_data *data);
 void				ft_key_diag(int keycode, t_data *data);
 void				ft_key_init(t_data *data);
 
-void				ft_key_updownview(int keycode, t_data *data);
+void				ft_key_upview(t_data *data);
+void				ft_key_downview(t_data *data);
 void				ft_key_zoom(int keycode, t_data *data);
-//void				ft_key_around(int keycode, t_data *data);
 
 void				ft_putframe(t_image *image);
 void				ft_putguide(t_image *im);

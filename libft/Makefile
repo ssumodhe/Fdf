@@ -6,7 +6,7 @@
 #    By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/08 11:04:13 by ssumodhe          #+#    #+#              #
-#    Updated: 2017/03/30 17:04:16 by ssumodhe         ###   ########.fr        #
+#    Updated: 2017/04/01 16:01:07 by ssumodhe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ all: $(NAME)
 $(NAME): $(OBJECT)
 	@gcc $(FLAGS) -c $(SRCS)
 	@ar rc $(NAME) $(OBJECT)
-	@echo "Libft: make: \033[1;32mDONE\033[0m"
+	@echo "Libft: \033[1;32mDONE\033[0m"
 
 %.o: %.c
 	@gcc $(FLAGS) -o $@ -c $<
