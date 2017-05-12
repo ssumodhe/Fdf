@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/05/12 19:07:39 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/05/12 19:21:26 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,20 +124,38 @@ typedef struct		s_data
 	struct s_data	*next;
 }					t_data;
 
+
+/*
+** prog_fdf.c
+*/
 void				ft_prog(int fd);
 void				ft_exit(char *str);
 
+/*
+** getmap_fdf.c
+*/
 t_data				*ft_getmap(int fd);
 t_data				*ft_addnewdatalst();
+void				ft_checkcpt(int cpt);
 
+/*
+** parsing_fdf.c
+*/
 t_map				*ft_parsemap(t_data *data);
 int					ft_checkdata(char **data);
+void				ft_get_highest(t_data *data, t_map *map);
 
-t_image				*ft_get_img_param(t_map *map, float k);
+/*
+** graph_fdf.c
+*/
 void				ft_graph_part(t_map *map, t_data *data);
+t_image				*ft_get_img_param(t_map *map, float k);
 void				ft_createwindow(t_data *data, t_image *image);
 void				ft_createimage(t_data *data, t_image *image);
 
+/*
+** display_img_fdf.c
+*/
 void				ft_design_image(t_data *data, t_image *image);
 t_drwln				ft_init_drwln(t_image *image);
 t_drwln				ft_getalti(t_data *tmp, t_data *after, t_drwln dl);
@@ -146,22 +164,34 @@ void				ft_getline(t_data *tmp, t_data *after, t_ptcalc pc, \
 void				ft_getline_lastline(t_data *after, t_ptcalc pc, \
 						t_drwln dl);
 
+/*
+** display_img_2_fdf.c
+*/
 int					ft_getcolour(char *point, char *img_colour);
 void				ft_drawline_img(t_image *image, t_ptcalc pc);
 void				ft_choose_side_x(t_ptcalc pc, t_image *image);
 void				ft_choose_side_y(t_ptcalc pc, t_image *image);
 void				ft_pixel_put_img(t_image *img, int x, int y, int colour);
 
+/*
+** keycode_fdf.c
+*/
 int					ft_key(int keycode, t_data *data);
 void				ft_key_colour(int keycode, t_data *data);
 void				ft_key_vertihori(int keycode, t_data *data);
 void				ft_key_diag(int keycode, t_data *data);
 void				ft_key_init(t_data *data);
 
+/*
+** keycode_2_fdf.c
+*/
 void				ft_key_upview(t_data *data);
 void				ft_key_downview(t_data *data);
 void				ft_key_zoom(int keycode, t_data *data);
 
+/*
+** display_win_fdf.c
+*/
 void				ft_putframe(t_image *image);
 void				ft_putguide(t_image *im);
 void				ft_putguide_moves(t_image *im);
