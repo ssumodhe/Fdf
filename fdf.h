@@ -6,10 +6,35 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:02:38 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/04/01 18:56:09 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/05/12 19:07:39 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+ * Etape 1 - Rencontre avec Minilibx.
+ * 		(DL dossier minilibx -> dossier man)
+ * 		/!\. aux images!!! 
+ * 				conseil: utilise les images pour creer tes dessins plutot
+ * 						que de dessiner tout de suite sur la fenetre.
+ * 		Trace des points, des traits, fais des maisons!
+ * 				conseil: inspire toi fortement de l'algo de tracage de Bresenham
+ *
+ * Etape 2 - Recuperer une map et Parse la.
+ * 		Si Etape 4 il y a, essaie d'anticiper toutes les donnees que tu pourrais
+ * 		avoir besoin par la suite... 
+ *
+ * Etape 3 - Dessine la map.
+ *
+ * Etape 4 - Paufinage et Bonus.
+ * 		La liste des bonus Fdf est tres longue, mais une particulierement utile
+ * 		notamment pour gerer les grosses maps : l'ajustement de la taille de la 
+ * 		fenetre par rapport a la map envoyee.
+ *
+ * Voila, amuse toi bien!
+ * PS : un chan Fdf est egalement la pour te guider! 
+ *
+ * ;)
+*/
 #ifndef FDF_H
 # define FDF_H
 
@@ -76,6 +101,7 @@ typedef struct		s_image
 	float	coef_h;
 	char	*colour;
 	char	*img_addr;
+	double	q; //for rotate fonc
 	t_fdf	fdf;
 }					t_image;
 

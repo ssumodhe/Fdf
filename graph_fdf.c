@@ -6,7 +6,7 @@
 /*   By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 17:28:01 by ssumodhe          #+#    #+#             */
-/*   Updated: 2017/04/01 19:29:53 by ssumodhe         ###   ########.fr       */
+/*   Updated: 2017/04/05 20:50:23 by ssumodhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_image		*ft_get_img_param(t_map *map, float k)
 	img_param->coef_h = img_param->gap * 3 / 4;
 	img_param->colour = CHAR_WHITE;
 	img_param->fdf = map->fdf;
+	img_param->q = -1; // for rotate fonc
 	return (img_param);
 }
 

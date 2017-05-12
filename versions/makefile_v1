@@ -6,15 +6,16 @@
 #    By: ssumodhe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/30 20:36:48 by ssumodhe          #+#    #+#              #
-#    Updated: 2017/04/15 23:00:56 by ssumodhe         ###   ########.fr        #
+#    Updated: 2017/04/14 16:58:38 by ssumodhe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra
-FLAGSMLX = -lmlx -framework OpenGL -framework Appkit
-EXEC = fdf
+FLAGS = -Wall -Werror -Wextra -lmlx -framework OpenGL -framework Appkit
+
+NAME = fdf
+
 LIBFT = libft/libft.a
-FDF = fdf.a
+
 SRCS = main_fdf.c \
 	   prog_fdf.c \
 	   parsing_fdf.c \
@@ -26,30 +27,27 @@ SRCS = main_fdf.c \
 	   keycode_2_fdf.c \
 	   display_win_fdf.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRC:.c=.o)
 
 
-all : $(EXEC)
+all : $(NAME)
 
-$(EXEC) : $(OBJS) $(LIBFT)
-	@ar rc $(FDF) $(OBJS)
-	@clang $(FLAGS) $(FLAGSMLX) -o $@ $(LIBFT) $(FDF)
+$(NAME) : $(LIBFT)
+	@clang $(FLAGS) -o $(NAME) $(SRCS) $(LIBFT)
 	@echo "Fdf: \033[1;32mDONE\033[0m"
 
 $(LIBFT) :
-	@make -C libft
+	@make -C libft re
 
 %.o: %.c
 	@clang $(FLAGS) -o $@ -c $<
 
 clean :
 	@make -C libft clean
-	@rm -rf *.o
-	@echo "Fdf: clean: \033[1;32mDONE\033[0m"
 
 fclean : clean
 	@make -C libft fclean
-	@rm -rf $(FDF)
+	@rm -rf $(NAME)
 	@echo "Fdf: fclean: \033[1;32mDONE\033[0m"
 
 re : fclean all
